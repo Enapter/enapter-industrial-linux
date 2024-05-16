@@ -1,0 +1,30 @@
+version: "3"
+services:
+  intel-x86-64-build:
+    image: enapter/build-yocto:v0.3
+    network_mode: host
+    environment:
+      - SKIP_SSTATE_SAVE
+      - SKIP_SSTATE_LOAD
+      - SECURE_BOOT_SIGNING_CERT
+      - SECURE_BOOT_SIGNING_CERT_BASE64
+      - SECURE_BOOT_SIGNING_KEY
+      - SECURE_BOOT_SIGNING_KEY_BASE64
+      - SECURE_BOOT_SIGNING_CERT_DER
+      - SECURE_BOOT_SIGNING_CERT_DER_BASE64
+      - BB_ENV_PASSTHROUGH_ADDITIONS
+      - DISTRO_VERSION
+      - IMG_ARTIFACT_NAME
+      - IMG_FILE_ARTIFACT_NAME
+      - UPDATE_ARTIFACT_NAME
+      - VMDK_ARTIFACT_NAME
+      - SSTATE_DIR
+      - DL_DIR
+      - TMPDIR
+    volumes:
+      - ${CI_PROJECT_DIR}:/home/build/enapter-linux-build-source
+      - ${CI_PROJECT_DIR}/docker/bin:/home/build/bin
+      - ${BUILD_STORAGE_DIR}/caches/intel-x86-64-sstate-cache-oss:/home/build/sstate-cache-source
+      - ${BUILD_STORAGE_DIR}/caches/intel-x86-64-downloads:/home/build/downloads
+      - ${BUILD_STORAGE_DIR}/intel-x86-64-images:/home/build/images
+    command: /home/build/bin/build-intel-x86-64.sh

@@ -1,0 +1,40 @@
+stages:
+  - image:build
+  - image:release
+
+variables:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_HTTP_TIMEOUT: 600
+  BUILD_STORAGE_DIR: /home/gitlab-runner
+
+Build Image:
+  when: manual
+  cache:
+    paths:
+    - repositories/
+  stage: image:build
+  tags:
+  - yocto
+  script:
+    - set -o allexport && source configs/versions.env && set +o allexport
+    - source ./bin/prepare-environments.sh
+    - ./bin/fetch-repositories.sh configs/repositories.conf
+    - docker-compose -f docker-compose-buildagent.yml run --rm intel-x86-64-build
+
+Git Pull:
+  when: manual
+  stage: image:build
+  tags:
+  - yocto
+  script:
+    - ./bin/fetch-repositories.sh configs/repositories.conf
+
+Release:
+  when: manual
+  stage: image:release
+  tags:
+  - yocto
+  script:
+    - set -o allexport && source configs/versions.env && set +o allexport
+    - source ./bin/prepare-environments.sh
+    - ./bin/upload-artifacts.sh

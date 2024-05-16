@@ -1,0 +1,1 @@
+part --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/boot --fstype=vfat --label enp-os-usb --active --fixed-size 4G
