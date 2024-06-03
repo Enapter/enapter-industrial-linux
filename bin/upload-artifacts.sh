@@ -5,6 +5,7 @@
 set -ex
 
 repository="enapter/enapter-industrial-linux"
+sha256sums_name="SHA256SUMS"
 
 upload_asset() {
     release_id="$1"
@@ -31,6 +32,9 @@ create_release_response=$(curl -sL \
 
 release_id=$(echo "$create_release_response" | jq '.id')
 
+sha256sum -b "$IMG_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME" > "${BUILD_STORAGE_DIR}/intel-x86-64-images/$sha256sums_name"
+
 upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$IMG_ARTIFACT_NAME"
 upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$UPDATE_ARTIFACT_NAME"
 upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$VMDK_ARTIFACT_NAME"
+upload_asset "$release_id" "$sha256sums_name" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$sha256sums_name"
