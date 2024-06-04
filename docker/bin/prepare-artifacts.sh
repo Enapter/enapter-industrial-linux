@@ -4,9 +4,9 @@
 
 set -ex
 
-wic_file="enapter-linux-image-intel-corei7-64.rootfs.wic"
-vmdk_file="enapter-linux-image-intel-corei7-64.rootfs.wic.vmdk"
-update_file="enapter-linux-update.zip"
+wic_file="enapter-industrial-linux-image-intel-corei7-64.rootfs.wic"
+vmdk_file="enapter-industrial-linux-image-intel-corei7-64.rootfs.wic.vmdk"
+update_file="enapter-industrial-linux-update.zip"
 
 update_dir=/home/build/update
 images_dir=/home/build/images
@@ -18,7 +18,7 @@ img_path="$deploy_dir/$IMG_FILE_ARTIFACT_NAME"
 vmdk_path="$deploy_dir/$vmdk_file"
 
 rm -rf "$update_dir"
-rm -f "enapter-linux-*"
+rm -f "enapter-industrial-linux-*"
 
 mkdir -p "$update_dir"
 enapter_files="rootfs.img bzImage initrd version.txt"

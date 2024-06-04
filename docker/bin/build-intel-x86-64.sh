@@ -12,7 +12,7 @@ cd "/home/build/enapter-linux-build/repositories/poky"
 source oe-init-build-env ../../machine/
 cd ..
 
-bitbake enapter-linux-image
+bitbake enapter-industrial-linux-image
 
 /home/build/bin/save-sstate.sh
 /home/build/bin/prepare-artifacts.sh
