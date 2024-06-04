@@ -13,10 +13,10 @@ else
   export DISTRO_VERSION="$CI_COMMIT_TAG"
 fi
 
-export IMG_ARTIFACT_NAME="enapter-linux-${DISTRO_VERSION}.zip"
-export IMG_FILE_ARTIFACT_NAME="enapter-linux-${DISTRO_VERSION}.img"
-export UPDATE_ARTIFACT_NAME="enapter-linux-update-${DISTRO_VERSION}.zip"
-export VMDK_ARTIFACT_NAME="enapter-linux-${DISTRO_VERSION}.vmdk"
+export IMG_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.zip"
+export IMG_FILE_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.img"
+export UPDATE_ARTIFACT_NAME="enapter-industrial-linux-update-${DISTRO_VERSION}.zip"
+export VMDK_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.vmdk"
 
 export SSTATE_DIR=/home/build/sstate-cache
 export DL_DIR=/home/build/downloads
