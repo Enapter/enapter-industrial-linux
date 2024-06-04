@@ -12,4 +12,4 @@ cd ..
 # pip3 install -r /home/build/enapter-linux-build/repositories/poky/bitbake/toaster-requirements.txt
 # source toaster start webport=0.0.0.0:8080
 
-echo "/home/build/bin/sync-sources.sh && bitbake -k enapter-linux-image"
+echo "/home/build/bin/sync-sources.sh && bitbake -k enapter-industrial-linux-image"
