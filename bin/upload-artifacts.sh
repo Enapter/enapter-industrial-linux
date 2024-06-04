@@ -6,6 +6,7 @@ set -ex
 
 repository="enapter/enapter-industrial-linux"
 sha256sums_name="SHA256SUMS"
+artifacts_dir="${BUILD_STORAGE_DIR}/intel-x86-64-images"
 
 upload_asset() {
     release_id="$1"
@@ -32,11 +33,11 @@ create_release_response=$(curl -sL \
 
 release_id=$(echo "$create_release_response" | jq '.id')
 
-artifacts_dir="${BUILD_STORAGE_DIR}/intel-x86-64-images"
+cd "$artifacts_dir"
 
-sha256sum -b "$artifacts_dir/$IMG_ARTIFACT_NAME" "$artifacts_dir/$UPDATE_ARTIFACT_NAME" "$artifacts_dir/$VMDK_ARTIFACT_NAME" > "$artifacts_dir/$sha256sums_name"
+sha256sum -b "$IMG_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME" > "$sha256sums_name"
 
-upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "$artifacts_dir/$IMG_ARTIFACT_NAME"
-upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "$artifacts_dir/$UPDATE_ARTIFACT_NAME"
-upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "$artifacts_dir/$VMDK_ARTIFACT_NAME"
-upload_asset "$release_id" "$sha256sums_name" "$artifacts_dir/$sha256sums_name"
+upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "$IMG_ARTIFACT_NAME"
+upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME"
+upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME"
+upload_asset "$release_id" "$sha256sums_name" "$sha256sums_name"
