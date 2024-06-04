@@ -39,8 +39,8 @@ sha256sum $enapter_files $boot_files > SHA256SUMS
 zip -0 "$update_file" $enapter_files $boot_files SHA256SUMS
 
 hashsum=$(sha256sum "$img_path" | awk '{ print $1 }')
-echo "$hashsum  $IMG_FILE_ARTIFACT_NAME" > "$img_path".sha256sum
-zip -rj "/tmp/$IMG_ARTIFACT_NAME" "$img_path" "$img_path".sha256sum
+echo "$hashsum  $IMG_FILE_ARTIFACT_NAME" > SHA256SUMS
+zip -rj "/tmp/$IMG_ARTIFACT_NAME" "$img_path" SHA256SUMS
 
 cp "$update_file" "$images_dir/$UPDATE_ARTIFACT_NAME"
 cp "/tmp/$IMG_ARTIFACT_NAME" "$images_dir/$IMG_ARTIFACT_NAME"
