@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2024 Enapter <developers@enapter.com>
+# SPDX-License-Identifier: Apache-2.0
+
+header:
+  version: 17
+
+distro: enapter-industrial-linux
+target: enapter-industrial-linux-image
+machine: intel-corei7-64
+
+env:
+  DISTRO: null
+  DISTRO_VERSION: null
+  DL_DIR: /home/build/downloads
+  IMG_ARTIFACT_NAME: null
+  IMG_FILE_ARTIFACT_NAME: null
+  INITRAMFS_SPDX_ARTIFACT_NAME: null
+  MODSIGN_SIGNING_CERT: null
+  MODSIGN_SIGNING_KEY: null
+  NVDCVE_API_KEY: null
+  RAUC_CERT: null
+  RAUC_KEY: null
+  RAUC_KEYRING: null
+  RAUC_UPDATE_ARTIFACT_NAME: null
+  ROOTFS_SPDX_ARTIFACT_NAME: null
+  SECURE_BOOT_SIGNING_CERT: null
+  SECURE_BOOT_SIGNING_CERT_DER: null
+  SECURE_BOOT_SIGNING_KEY: null
+  SSTATE_DIR: /home/build/sstate-cache
+  TMPDIR: /home/build/tmp
+  UPDATE_ARTIFACT_NAME: null
+  VEX_ARTIFACT_NAME: null
+  VMDK_ARTIFACT_NAME: null
+
+repos:
+  meta-enapter-linux:
+    layers:
+      meta-enapter-linux:
+
+  poky:
+    url: 'git://git.yoctoproject.org/poky.git'
+    tag: 'yocto-5.0.4'
+    patches:
+      patch0:
+        repo: meta-enapter-linux
+        path: configs/patches/0001-Backport-vex.bbclass-and-dependencies.patch
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-enapter:
+    url: 'https://github.com/enapter/meta-enapter'
+    branch: 'release/3.0'
+    layers:
+      meta-enapter-core:
+
+  meta-intel:
+    url: 'git://git.yoctoproject.org/meta-intel.git'
+    commit: 'c2bc8e27e9cc83654a23e8d89525fd9b1e781eb6'
+
+  meta-openembedded:
+    url: 'git://git.openembedded.org/meta-openembedded'
+    commit: '2e3126c9c16bb3df0560f6b3896d01539a3bfad7'
+    layers:
+      meta-filesystems:
+      meta-initramfs:
+      meta-networking:
+      meta-oe:
+      meta-perl:
+      meta-python:
+      meta-webserver:
+
+  meta-rauc:
+    url: 'https://github.com/rauc/meta-rauc.git'
+    commit: '1e3e6b334defd7fbf95cb43d23975e7b3de4b520'
+
+  meta-virtualization:
+    url: 'git://git.yoctoproject.org/meta-virtualization'
+    commit: '6f3c1d8f90947408a6587be222fec575a1ca5195'
+
+local_conf_header:
+  10-base: |
+    CONF_VERSION = "2"
+    SPDX_PRETTY = "1"
+    IMAGE_FSTYPES = "wic ext4"
+    SKIP_META_VIRT_SANITY_CHECK = "1"
+    INHERIT += "rm_work vex"

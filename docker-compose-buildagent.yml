@@ -1,26 +1,39 @@
 version: "3"
 services:
   intel-x86-64-build:
-    image: enapter/build-yocto:v0.3
+    image: enapter/build-yocto:v0.8
     network_mode: host
+    privileged: true
     environment:
-      - SKIP_SSTATE_SAVE
-      - SKIP_SSTATE_LOAD
-      - SECURE_BOOT_SIGNING_CERT
-      - SECURE_BOOT_SIGNING_CERT_BASE64
-      - SECURE_BOOT_SIGNING_KEY
-      - SECURE_BOOT_SIGNING_KEY_BASE64
-      - SECURE_BOOT_SIGNING_CERT_DER
-      - SECURE_BOOT_SIGNING_CERT_DER_BASE64
-      - BB_ENV_PASSTHROUGH_ADDITIONS
+      - DISTRO
       - DISTRO_VERSION
       - IMG_ARTIFACT_NAME
       - IMG_FILE_ARTIFACT_NAME
+      - INITRAMFS_SPDX_ARTIFACT_NAME
+      - MODSIGN_SIGNING_CERT
+      - MODSIGN_SIGNING_CERT_BASE64
+      - MODSIGN_SIGNING_KEY
+      - MODSIGN_SIGNING_KEY_BASE64
+      - NVDCVE_API_KEY
+      - RAUC_CERT
+      - RAUC_CERT_BASE64
+      - RAUC_KEY
+      - RAUC_KEYRING
+      - RAUC_KEYRING_BASE64
+      - RAUC_KEY_BASE64
+      - RAUC_UPDATE_ARTIFACT_NAME
+      - ROOTFS_SPDX_ARTIFACT_NAME
+      - SECURE_BOOT_SIGNING_CERT
+      - SECURE_BOOT_SIGNING_CERT_BASE64
+      - SECURE_BOOT_SIGNING_CERT_DER
+      - SECURE_BOOT_SIGNING_CERT_DER_BASE64
+      - SECURE_BOOT_SIGNING_KEY
+      - SECURE_BOOT_SIGNING_KEY_BASE64
+      - SKIP_SSTATE_LOAD
+      - SKIP_SSTATE_SAVE
       - UPDATE_ARTIFACT_NAME
+      - VEX_ARTIFACT_NAME
       - VMDK_ARTIFACT_NAME
-      - SSTATE_DIR
-      - DL_DIR
-      - TMPDIR
     volumes:
       - ${CI_PROJECT_DIR}:/home/build/enapter-linux-build-source
       - ${CI_PROJECT_DIR}/docker/bin:/home/build/bin

@@ -4,15 +4,12 @@
 
 set -ex
 
-/home/build/bin/prepare-sign-keys.sh
 /home/build/bin/sync-sources.sh
+/home/build/bin/prepare-sign-keys.sh
 /home/build/bin/load-sstate.sh
 
-cd "/home/build/enapter-linux-build/repositories/poky"
-source oe-init-build-env ../../machine/
-cd ..
-
-bitbake enapter-industrial-linux-image
+cd "/home/build/enapter-linux-build"
+kas build configs/enapter-industrial-linux.yml
 
 /home/build/bin/save-sstate.sh
-/home/build/bin/prepare-artifacts.sh
+kas shell configs/enapter-industrial-linux.yml -c /home/build/bin/prepare-artifacts.sh

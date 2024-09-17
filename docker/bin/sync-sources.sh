@@ -5,7 +5,9 @@
 set -ex
 
 if [[ -z "${SKIP_SOURCES_SYNC}" ]]; then
-  rsync --exclude='.git/' --delete-after -za /home/build/enapter-linux-build-source/ /home/build/enapter-linux-build
+  rsync --delete-after -za /home/build/enapter-linux-build-source/ /home/build/enapter-linux-build
+  cd /home/build/enapter-linux-build
+  KAS_CLONE_DEPTH=1 kas checkout --force-checkout configs/enapter-industrial-linux.yml
 else
   echo "Skipping sync-sources..."
 fi
