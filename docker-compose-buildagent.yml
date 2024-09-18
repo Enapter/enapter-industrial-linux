@@ -1,8 +1,9 @@
 version: "3"
 services:
   intel-x86-64-build:
-    image: enapter/build-yocto:v0.3
+    image: enapter/build-yocto:v0.7
     network_mode: host
+    privileged: true
     environment:
       - SKIP_SSTATE_SAVE
       - SKIP_SSTATE_LOAD
@@ -24,6 +25,7 @@ services:
       - IMG_FILE_ARTIFACT_NAME
       - UPDATE_ARTIFACT_NAME
       - VMDK_ARTIFACT_NAME
+      - RAUC_UPDATE_ARTIFACT_NAME
       - SSTATE_DIR
       - DL_DIR
       - TMPDIR

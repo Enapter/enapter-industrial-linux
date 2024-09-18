@@ -3,9 +3,11 @@ IMAGE_INSTALL = "\
                  ${IMAGE_ROOTFS_INSTALL} \
                 "
 
+IMAGE_OVERHEAD_FACTOR = "1.3"
+
 DEPENDS:remove = "grub-efi"
 IMAGE_FEATURES = ""
-IMAGE_FSTYPES = "squashfs-zst"
+IMAGE_FSTYPES = "squashfs-zst ext4"
 KERNELDEPMODDEPEND = ""
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
