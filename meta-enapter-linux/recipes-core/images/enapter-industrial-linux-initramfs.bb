@@ -6,12 +6,17 @@ INITRAMFS_SCRIPTS ?= "\
 
 PACKAGE_INSTALL = "\
                    ${IMAGE_FS_TOOLS} \
-                   ${IMAGE_KERNEL_DEPS} \
+                   ${IMAGE_INITRD_KERNEL_DEPS} \
                    ${INITRAMFS_SCRIPTS} \
                    ${VIRTUAL-RUNTIME_base-utils} \
                    ${VIRTUAL-RUNTIME_dev_manager} \
                    base-passwd \
                    coreutils \
+                  "
+
+BAD_RECOMMENDATIONS += "\
+                   kernel-modules \
+                   tzdata \
                   "
 
 IMAGE_FEATURES = ""
