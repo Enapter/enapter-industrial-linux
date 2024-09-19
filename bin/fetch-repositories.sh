@@ -8,4 +8,4 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-grep -v "^#" "$1" | while read p; do ./bin/git-fetch.sh $p || exit 1; done
+grep -v "^#" "$1" | while read -r p; do ./bin/git-fetch.sh $p || exit 1; done

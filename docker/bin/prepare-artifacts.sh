@@ -39,7 +39,6 @@ for f in $boot_files; do
 done
 
 rauc_version_file="version.txt"
-rauc_rootfs_file="rootfs.img"
 rauc_kernel_files="initrd bzImage"
 rauc_boot_files="unicode.pf2 bootx64.efi mmx64.efi grubx64.efi"
 rauc_bootloader_update_dir="bootloader"
@@ -72,8 +71,8 @@ mcopy -i "$rauc_update_dir/$rauc_bootloader_update_dir.vfat" -s "$rauc_update_di
 
 tar -czf "$rauc_update_dir/$rauc_kernel_update_dir.tar.gz" -C "$rauc_update_dir/$rauc_kernel_update_dir" --strip-components 1 .
 
-rm -rf "$rauc_update_dir/$rauc_kernel_update_dir"
-rm -rf "$rauc_update_dir/$rauc_bootloader_update_dir"
+rm -rf "${rauc_update_dir:?}/$rauc_kernel_update_dir"
+rm -rf "${rauc_update_dir:?}/$rauc_bootloader_update_dir"
 
 version="$(cat "/tmp/$rauc_version_file")"
 
