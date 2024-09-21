@@ -11,6 +11,7 @@ update_file="enapter-industrial-linux-update.zip"
 efi_enapter_dir="EFI/enapter"
 efi_boot_dir="EFI/BOOT"
 rauc_manifest="manifest.raucm"
+install_bundle_name="install.raucb"
 
 update_dir=/home/build/update
 rauc_update_dir=/home/build/rauc-update
@@ -96,6 +97,9 @@ EOF
 
 rauc bundle --cert="$RAUC_CERT" --key="$RAUC_KEY" "$rauc_update_dir/" "$images_dir/$RAUC_UPDATE_ARTIFACT_NAME"
 
+# put update bundle as install bundle file inside disk image
+wic cp "$images_dir/$RAUC_UPDATE_ARTIFACT_NAME" "$img_path:1/$install_bundle_name"
+
 cd "$update_dir"
 # shellcheck disable=SC2086
 sha256sum $enapter_files $boot_files > SHA256SUMS
@@ -108,4 +112,4 @@ zip -rj "/tmp/$IMG_ARTIFACT_NAME" "$img_path" SHA256SUMS
 
 cp "$update_file" "$images_dir/$UPDATE_ARTIFACT_NAME"
 cp "/tmp/$IMG_ARTIFACT_NAME" "$images_dir/$IMG_ARTIFACT_NAME"
-cp "$vmdk_path" "$images_dir/$VMDK_ARTIFACT_NAME"
+qemu-img convert -O vmdk "$img_path" "$images_dir/$VMDK_ARTIFACT_NAME"
