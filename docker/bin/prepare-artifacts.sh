@@ -10,7 +10,6 @@ efi_enapter_dir="EFI/enapter"
 efi_boot_dir="EFI/BOOT"
 rauc_manifest="manifest.raucm"
 install_bundle_name="install.raucb"
-img_path="$deploy_dir/$IMG_FILE_ARTIFACT_NAME"
 
 update_dir=/home/build/update
 rauc_update_dir=/home/build/rauc-update
@@ -27,6 +26,7 @@ rauc_rootfs_update="rootfs.ext4"
 rauc_enapter_cert_file="Enapter.cer"
 enapter_files="rootfs.img bzImage initrd version.txt"
 boot_files="grubx64.efi grub.cfg"
+img_path="$deploy_dir/$IMG_FILE_ARTIFACT_NAME"
 
 # Cleanup from previous run
 rm -rf "$update_dir"
