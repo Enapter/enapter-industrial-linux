@@ -16,6 +16,7 @@ update_dir=/home/build/update
 rauc_update_dir=/home/build/rauc-update
 images_dir=/home/build/images
 deploy_dir=/home/build/tmp-glibc/deploy/images/intel-corei7-64
+rauc_conf="system.conf"
 rauc_kernel_files="initrd bzImage"
 rauc_boot_files="unicode.pf2 bootx64.efi mmx64.efi grubx64.efi"
 rauc_bootloader_update="bootloader.vfat"
@@ -31,6 +32,19 @@ boot_files="grubx64.efi grub.cfg"
 rm -rf "$update_dir"
 rm -rf "$rauc_update_dir"
 rm -vf "$images_dir/enapter-industrial-linux-"*
+
+# dummy config for rauc extract to work
+# we specifying all required settings and
+# check-purpose=any is only important for us
+cat << EOF > "$deploy_dir/$rauc_conf"
+[system]
+compatible=Enapter Linux
+bootloader=grub
+bundle-formats=-plain
+
+[keyring]
+check-purpose=any
+EOF
 
 # Copying industrial Linux img file with another name
 # to make this script easier to test
@@ -90,7 +104,9 @@ rm -rf "${rauc_update_dir:?}/$rauc_kernel_update_dir"
 rm -rf "${rauc_update_dir:?}/$rauc_bootloader_update_dir"
 
 # Creating update bundle in output folder
-rauc bundle --cert="$RAUC_CERT" --key="$RAUC_KEY" "$rauc_update_dir/" "$images_dir/$RAUC_UPDATE_ARTIFACT_NAME"
+rauc bundle --keyring="$RAUC_KEYRING" -c "$deploy_dir/$rauc_conf" \
+  --cert="$RAUC_CERT" --key="$RAUC_KEY" \
+  "$rauc_update_dir/" "$images_dir/$RAUC_UPDATE_ARTIFACT_NAME"
 
 # Put update bundle as install bundle file inside disk image
 wic cp "$images_dir/$RAUC_UPDATE_ARTIFACT_NAME" "$img_path:1/$install_bundle_name"
