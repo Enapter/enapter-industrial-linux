@@ -1,0 +1,60 @@
+# SPDX-FileCopyrightText: 2024 Enapter <developers@enapter.com>
+# SPDX-License-Identifier: Apache-2.0
+
+header:
+  version: 17
+
+distro: enapter-industrial-linux
+target: enapter-industrial-linux-image
+machine: intel-x86-64-corei7
+
+repos:
+  meta-enapter-linux:
+    layers:
+      meta-enapter-linux:
+
+  poky:
+    url: 'git://git.yoctoproject.org/poky.git'
+    tag: 'yocto-5.0.3'
+    layers:
+      meta:
+      meta-poky:
+      meta-yocto-bsp:
+
+  meta-enapter:
+    url: 'https://github.com/enapter/meta-enapter'
+    branch: 'release/3.0'
+    layers:
+      meta-enapter-core:
+
+  meta-intel:
+    url: 'git://git.yoctoproject.org/meta-intel.git'
+    commit: 'cfb0e237cf3f25ffb128bd55e3e72eb0fb2ca096'
+
+  meta-openembedded:
+    url: 'git://git.openembedded.org/meta-openembedded'
+    commit: '1235dd4ed4a57e67683c045ad76b6a0f9e896b45'
+    layers:
+      meta-filesystems:
+      meta-initramfs:
+      meta-networking:
+      meta-oe:
+      meta-perl:
+      meta-python:
+      meta-webserver:
+
+
+  meta-rauc:
+    url: 'https://github.com/rauc/meta-rauc.git'
+    commit: '1e3e6b334defd7fbf95cb43d23975e7b3de4b520'
+
+  meta-virtualization:
+    url: 'git://git.yoctoproject.org/meta-virtualization'
+    commit: '54b806b1985f3989722ee308e1073530fe3328c1'
+
+local_conf_header:
+  10-base: |
+    CONF_VERSION = "2"
+    IMAGE_FSTYPES = "wic ext4"
+    SKIP_META_VIRT_SANITY_CHECK = "1"
+    INHERIT += "rm_work"

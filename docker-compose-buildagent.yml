@@ -10,6 +10,7 @@ services:
       - DL_DIR
       - IMG_ARTIFACT_NAME
       - IMG_FILE_ARTIFACT_NAME
+      - MACHINE
       - RAUC_CERT
       - RAUC_CERT_BASE64
       - RAUC_KEY
