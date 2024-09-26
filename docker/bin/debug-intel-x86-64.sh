@@ -5,5 +5,7 @@
 /home/build/bin/prepare-sign-keys.sh
 /home/build/bin/load-sstate.sh
 
+# ./oe-init-build-env ~/enapter-linux-build/build/
+
 cd "/home/build/enapter-linux-build"
 echo "/home/build/bin/sync-sources.sh && kas build configs/enapter-industrial-linux.yml"

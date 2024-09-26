@@ -9,20 +9,31 @@ IMAGE_ROOTFS_EXTRA_SPACE = "300000"
 
 inherit core-image
 
-do_rootfs[depends] += "enapter-industrial-linux-rootfs:do_image_complete enapter-industrial-linux-initramfs:do_image_complete virtual/kernel:do_deploy sbsigntool-native:do_populate_sysroot"
+do_rootfs[depends] += "enapter-industrial-linux-rootfs:do_image_complete enapter-industrial-linux-initramfs:do_image_complete virtual/kernel:do_deploy sbsigntool-native:do_populate_sysroot intel-microcode:do_deploy"
 
 copy_files_to_boot () {
     mkdir -p ${IMAGE_ROOTFS}/boot/EFI/enapter
 
-    KERNEL_FILE="${IMAGE_ROOTFS}/boot/EFI/enapter/bzImage"
-    GRUB_EFI_FILE="${IMAGE_ROOTFS}/boot/EFI/BOOT/grubx64.efi"
+    GRUB_EFI_SOURCE="${IMAGE_ROOTFS}/boot/EFI/BOOT/grub-efi-bootx64.efi"
+    INITRD_SOURCE="${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-initramfs-${MACHINE}.cpio.gz"
+    KERNEL_SOURCE="${DEPLOY_DIR_IMAGE}/bzImage"
+    MICROCODE_SOURCE="${DEPLOY_DIR_IMAGE}/microcode.cpio"
+    ROOTFS_SOURCE="${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-rootfs-${MACHINE}.rootfs.squashfs-zst"
+
+    GRUB_EFI_TARGET="${IMAGE_ROOTFS}/boot/EFI/BOOT/grubx64.efi"
+    INITRD_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/initrd"
+    KERNEL_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/bzImage"
+    MICROCODE_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/microcode.cpio"
+    ROOTFS_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/rootfs.img"
+    TMP_INITRD_TARGET="${DEPLOY_DIR_IMAGE}/combo_initrd.cpio"
 
     echo "${DISTRO_VERSION}" > ${IMAGE_ROOTFS}/boot/EFI/enapter/version.txt
 
-    cp ${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-rootfs-${MACHINE}.rootfs.squashfs-zst ${IMAGE_ROOTFS}/boot/EFI/enapter/rootfs.img
-    cp ${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-initramfs-${MACHINE}.cpio.gz ${IMAGE_ROOTFS}/boot/EFI/enapter/initrd
-    cp ${DEPLOY_DIR_IMAGE}/bzImage ${KERNEL_FILE}
-    mv ${IMAGE_ROOTFS}/boot/EFI/BOOT/grub-efi-bootx64.efi ${GRUB_EFI_FILE}
+    cat "${MICROCODE_SOURCE}" "${INITRD_SOURCE}" | gzip > "${INITRD_TARGET}"
+
+    cp ${KERNEL_SOURCE} ${KERNEL_TARGET}
+    cp ${ROOTFS_SOURCE} ${ROOTFS_TARGET}
+    mv ${GRUB_EFI_SOURCE} ${GRUB_EFI_TARGET}
 
     if [ -f ${SECURE_BOOT_SIGNING_CERT_DER} ]; then
         cp ${SECURE_BOOT_SIGNING_CERT_DER} "${IMAGE_ROOTFS}/boot/Enapter.cer"

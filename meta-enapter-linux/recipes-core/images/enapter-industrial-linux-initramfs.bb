@@ -26,7 +26,7 @@ IMAGE_LINGUAS = ""
 IMAGE_INSTALL = ""
 LICENSE = "MIT"
 
-IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
+IMAGE_FSTYPES = "cpio"
 
 inherit core-image
 

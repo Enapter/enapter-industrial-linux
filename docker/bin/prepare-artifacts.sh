@@ -16,7 +16,7 @@ rauc_update_dir=/home/build/rauc-update
 images_dir=/home/build/images
 deploy_dir=/home/build/tmp-glibc/deploy/images/intel-corei7-64
 rauc_conf="system.conf"
-rauc_kernel_files="initrd bzImage"
+rauc_kernel_files="microcode.cpio initrd bzImage"
 rauc_boot_files="unicode.pf2 bootx64.efi mmx64.efi grubx64.efi"
 rauc_bootloader_update="bootloader.vfat"
 rauc_bootloader_update_dir="bootloader"
@@ -66,7 +66,7 @@ done
 # Enapter.cer file will be part of bootloader image
 wic cp "$img_path:1/$rauc_enapter_cert_file" "$rauc_update_dir/$rauc_bootloader_update_dir/$rauc_enapter_cert_file"
 
-# Copying bzImage and initrd to kernel update image temp folder
+# Copying bzImage, microcode and initrd to kernel update image temp folder
 for f in $rauc_kernel_files; do
   wic cp "$img_path:1/$efi_enapter_dir/$f" "$rauc_update_dir/$rauc_kernel_update_dir"
 done
