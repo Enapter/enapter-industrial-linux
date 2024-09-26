@@ -1,16 +1,13 @@
 version: "3"
 services:
   intel-x86-64-build:
-    image: enapter/build-yocto:v0.7
+    image: enapter/build-yocto:v0.8
     network_mode: host
     privileged: true
     environment:
-      - BB_ENV_PASSTHROUGH_ADDITIONS
       - DISTRO_VERSION
-      - DL_DIR
       - IMG_ARTIFACT_NAME
       - IMG_FILE_ARTIFACT_NAME
-      - MACHINE
       - RAUC_CERT
       - RAUC_CERT_BASE64
       - RAUC_KEY
@@ -26,8 +23,6 @@ services:
       - SECURE_BOOT_SIGNING_KEY_BASE64
       - SKIP_SSTATE_LOAD
       - SKIP_SSTATE_SAVE
-      - SSTATE_DIR
-      - TMPDIR
       - UPDATE_ARTIFACT_NAME
       - VMDK_ARTIFACT_NAME
     volumes:

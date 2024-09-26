@@ -12,4 +12,4 @@ cd "/home/build/enapter-linux-build"
 kas build configs/enapter-industrial-linux.yml
 
 /home/build/bin/save-sstate.sh
-/home/build/bin/prepare-artifacts.sh
+kas shell configs/enapter-industrial-linux.yml -c /home/build/bin/prepare-artifacts.sh

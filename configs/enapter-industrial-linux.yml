@@ -6,7 +6,24 @@ header:
 
 distro: enapter-industrial-linux
 target: enapter-industrial-linux-image
-machine: intel-x86-64-corei7
+machine: intel-corei7-64
+
+env:
+  DISTRO_VERSION: null
+  DL_DIR: /home/build/downloads
+  RAUC_CERT: null
+  RAUC_KEY: null
+  RAUC_KEYRING: null
+  SECURE_BOOT_SIGNING_CERT: null
+  SECURE_BOOT_SIGNING_CERT_DER: null
+  SECURE_BOOT_SIGNING_KEY: null
+  SSTATE_DIR: /home/build/sstate-cache
+  TMPDIR: /home/build/tmp
+  IMG_ARTIFACT_NAME: null
+  IMG_FILE_ARTIFACT_NAME: null
+  UPDATE_ARTIFACT_NAME: null
+  RAUC_UPDATE_ARTIFACT_NAME: null
+  VMDK_ARTIFACT_NAME: null
 
 repos:
   meta-enapter-linux:
