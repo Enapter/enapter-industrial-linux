@@ -6,6 +6,7 @@ variables:
   DOCKER_BUILDKIT: 1
   COMPOSE_HTTP_TIMEOUT: 600
   BUILD_STORAGE_DIR: /home/gitlab-runner
+  GIT_STRATEGY: clone
 
 Build Image:
   when: manual
