@@ -15,7 +15,7 @@ copy_files_to_boot () {
     mkdir -p ${IMAGE_ROOTFS}/boot/EFI/enapter
 
     GRUB_EFI_SOURCE="${IMAGE_ROOTFS}/boot/EFI/BOOT/grub-efi-bootx64.efi"
-    INITRD_SOURCE="${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-initramfs-${MACHINE}.cpio.gz"
+    INITRD_SOURCE="${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-initramfs-${MACHINE}.cpio"
     KERNEL_SOURCE="${DEPLOY_DIR_IMAGE}/bzImage"
     MICROCODE_SOURCE="${DEPLOY_DIR_IMAGE}/microcode.cpio"
     ROOTFS_SOURCE="${DEPLOY_DIR_IMAGE}/enapter-industrial-linux-rootfs-${MACHINE}.rootfs.squashfs-zst"
@@ -25,7 +25,6 @@ copy_files_to_boot () {
     KERNEL_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/bzImage"
     MICROCODE_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/microcode.cpio"
     ROOTFS_TARGET="${IMAGE_ROOTFS}/boot/EFI/enapter/rootfs.img"
-    TMP_INITRD_TARGET="${DEPLOY_DIR_IMAGE}/combo_initrd.cpio"
 
     echo "${DISTRO_VERSION}" > ${IMAGE_ROOTFS}/boot/EFI/enapter/version.txt
 
