@@ -15,10 +15,11 @@ vex_file="cve-summary.json"
 wic_file="enapter-industrial-linux-image-intel-corei7-64.rootfs.wic"
 
 boot_files="grubx64.efi grub.cfg"
-cve_dir="/home/build/tmp-glibc/log/cve"
-deploy_dir="/home/build/tmp-glibc/deploy/images/intel-corei7-64"
+home_dir="/home/build"
+cve_dir="$home_dir/tmp-glibc/log/cve"
+deploy_dir="$home_dir/tmp-glibc/deploy/images/intel-corei7-64"
 enapter_files="rootfs.img bzImage initrd version.txt"
-images_dir="/home/build/images"
+images_dir="$home_dir/images"
 img_path="$deploy_dir/$IMG_FILE_ARTIFACT_NAME"
 rauc_boot_files="bootx64.efi mmx64.efi grubx64.efi"
 rauc_bootloader_update="bootloader.vfat"
@@ -29,8 +30,8 @@ rauc_kernel_files="initrd bzImage"
 rauc_kernel_update="kernel.tar.gz"
 rauc_kernel_update_dir="kernel"
 rauc_rootfs_update="rootfs.ext4"
-rauc_update_dir="/home/build/rauc-update"
-update_dir="/home/build/update"
+rauc_update_dir="$home_dir/rauc-update"
+update_dir="$home_dir/update"
 
 # Cleanup from previous run
 rm -rf "$update_dir"
@@ -170,3 +171,9 @@ fi
 # Place .img and .vmdk images
 cp "/tmp/$IMG_ARTIFACT_NAME" "$images_dir/$IMG_ARTIFACT_NAME"
 qemu-img convert -O vmdk "$img_path" "$images_dir/$VMDK_ARTIFACT_NAME"
+
+cd "$home_dir"
+$home_dir/bin/prepare-gpl-sources.sh
+
+cd "$home_dir/tmp-glibc/deploy/source-release"
+zip -0 -r "$images_dir/$GPL_SOURCES_ARTIFACT_NAME" ./

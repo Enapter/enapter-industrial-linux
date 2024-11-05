@@ -7,6 +7,7 @@ services:
     environment:
       - DISTRO
       - DISTRO_VERSION
+      - GPL_SOURCES_ARTIFACT_NAME
       - IMG_ARTIFACT_NAME
       - IMG_FILE_ARTIFACT_NAME
       - INITRAMFS_SPDX_ARTIFACT_NAME

@@ -12,6 +12,7 @@ env:
   DISTRO: null
   DISTRO_VERSION: null
   DL_DIR: /home/build/downloads
+  GPL_SOURCES_ARTIFACT_NAME: null
   IMG_ARTIFACT_NAME: null
   IMG_FILE_ARTIFACT_NAME: null
   INITRAMFS_SPDX_ARTIFACT_NAME: null

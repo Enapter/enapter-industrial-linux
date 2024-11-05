@@ -23,13 +23,15 @@ upload_asset() {
       --data-binary "@$file_name"
 }
 
+BASE_VERSION="${DISTRO_VERSION%.*}"
+
 create_release_response=$(curl -sL \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $GITHUB_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/$repository/releases \
-  -d "{\"tag_name\":\"$DISTRO_VERSION\",\"name\":\"$DISTRO_VERSION\"}")
+  -d "{\"tag_name\":\"$BASE_VERSION\",\"name\":\"$DISTRO_VERSION\"}")
 
 release_id=$(echo "$create_release_response" | jq '.id')
 
@@ -53,4 +55,8 @@ fi
 
 if [ -e "$INITRAMFS_SPDX_ARTIFACT_NAME" ]; then
   upload_asset "$release_id" "$INITRAMFS_SPDX_ARTIFACT_NAME" "$INITRAMFS_SPDX_ARTIFACT_NAME"
+fi
+
+if [ -e "$GPL_SOURCES_ARTIFACT_NAME" ]; then
+  upload_asset "$release_id" "$GPL_SOURCES_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME"
 fi
