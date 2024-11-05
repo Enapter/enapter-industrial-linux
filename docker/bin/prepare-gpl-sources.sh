@@ -8,7 +8,7 @@ src_release_dir="$deploy_dir/source-release"
 rm -rf "$src_release_dir"
 mkdir -p "$src_release_dir"
 
-find "$deploy_dir/sources" -mindepth 2 -maxdepth 2 -type d | while read -r d; do
+find "$deploy_dir/sources" -mindepth 2 -maxdepth 2 -type d -not -name "*-native-*" | while read -r d; do
   # Get package name from path
   p=$(basename "$d")
   p=${p%-*}
