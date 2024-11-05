@@ -1,0 +1,13 @@
+GNU General Public License Source Code Offer
+
+This distribution includes binaries that are covered under the GNU General Public License (GPL). In accordance with the GPL, we are required to provide access to the source code of these binaries.
+
+You have several options to obtain the source code:
+
+1. **Direct Download**: The source code for all GPL-covered components is available for download on the release page of our GitHub project at [http://github.com/enapter/enapter-industrial-linux/releases].
+
+2. **Request by Email**: If you prefer, you may request the source code by sending an email to [developers@enapter.com]. Please include the name of the software package and the version number.
+
+This offer is valid for a period of three years from the date of distribution of this software.
+
+For more information about the GNU General Public License, please visit [https://www.gnu.org/licenses/].
