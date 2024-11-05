@@ -37,12 +37,13 @@ release_id=$(echo "$create_release_response" | jq '.id')
 
 cd "$artifacts_dir"
 
-sha256sum -b "$IMG_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME" "$RAUC_UPDATE_ARTIFACT_NAME" > "$sha256sums_name"
+sha256sum -b "$IMG_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME" "$RAUC_UPDATE_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME" > "$sha256sums_name"
 
 upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "$IMG_ARTIFACT_NAME"
 upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME"
 upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME"
 upload_asset "$release_id" "$RAUC_UPDATE_ARTIFACT_NAME" "$RAUC_UPDATE_ARTIFACT_NAME"
+upload_asset "$release_id" "$GPL_SOURCES_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME"
 upload_asset "$release_id" "$sha256sums_name" "$sha256sums_name"
 
 if [ -e "$VEX_ARTIFACT_NAME" ]; then
@@ -55,8 +56,4 @@ fi
 
 if [ -e "$INITRAMFS_SPDX_ARTIFACT_NAME" ]; then
   upload_asset "$release_id" "$INITRAMFS_SPDX_ARTIFACT_NAME" "$INITRAMFS_SPDX_ARTIFACT_NAME"
-fi
-
-if [ -e "$GPL_SOURCES_ARTIFACT_NAME" ]; then
-  upload_asset "$release_id" "$GPL_SOURCES_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME"
 fi
