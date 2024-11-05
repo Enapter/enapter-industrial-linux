@@ -172,8 +172,10 @@ fi
 cp "/tmp/$IMG_ARTIFACT_NAME" "$images_dir/$IMG_ARTIFACT_NAME"
 qemu-img convert -O vmdk "$img_path" "$images_dir/$VMDK_ARTIFACT_NAME"
 
+# filter out non-GPL and -native packages
 cd "$home_dir"
 $home_dir/bin/prepare-gpl-sources.sh
 
+# prepare gpl sources package
 cd "$home_dir/tmp-glibc/deploy/source-release"
 zip -0 -r "$images_dir/$GPL_SOURCES_ARTIFACT_NAME" ./
