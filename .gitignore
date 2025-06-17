@@ -1,4 +1,5 @@
 /build
-/poky
+/bitbake
+/openembedded-core
 /meta-*/
 !meta-enapter-linux
