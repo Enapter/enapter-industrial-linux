@@ -53,7 +53,7 @@ repos:
 
   meta-enapter:
     url: 'https://github.com/enapter/meta-enapter'
-    branch: 'release/3.0'
+    tag: 'v3.0.0-rc4'
     layers:
       meta-enapter-core:
 
