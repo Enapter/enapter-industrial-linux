@@ -36,7 +36,7 @@ env:
 repos:
   bitbake:
     url: 'git://git.openembedded.org/bitbake'
-    tag: 'yocto-5.0.11'
+    tag: 'yocto-5.0.15'
     path: "bitbake"
     layers:
       bitbake: excluded
@@ -47,23 +47,23 @@ repos:
 
   openembedded-core:
     url: 'git://git.openembedded.org/openembedded-core'
-    tag: 'yocto-5.0.11'
+    tag: 'yocto-5.0.15'
     layers:
       meta:
 
   meta-enapter:
     url: 'https://github.com/enapter/meta-enapter'
-    tag: 'v3.0.0-rc5'
+    tag: 'v3.0.0-rc7'
     layers:
       meta-enapter-core:
 
   meta-intel:
     url: 'git://git.yoctoproject.org/meta-intel.git'
-    commit: '38e75c8c1059e5f37659c140c010eaa203238fd2'
+    commit: '5d153e35b4e752505efeae368f188fac5e31cf33'
 
   meta-openembedded:
     url: 'git://git.openembedded.org/meta-openembedded'
-    commit: 'e8fd97d86af86cdcc5a6eb3f301cbaf6a2084943'
+    commit: '7a5075cef77b5f7af454e9868e1d0019f2fd1394'
     layers:
       meta-filesystems:
       meta-initramfs:
@@ -75,11 +75,11 @@ repos:
 
   meta-rauc:
     url: 'https://github.com/rauc/meta-rauc.git'
-    commit: 'a0f4a8b9986954239850b9d4256c003c91e6b931'
+    commit: 'e9d65639be4d8f150fbc7435e2ea399e2671fde1'
 
   meta-virtualization:
     url: 'git://git.yoctoproject.org/meta-virtualization'
-    commit: 'a5449c0c50aa07d02186f548fe6bb6c1ce8823dc'
+    commit: '8b1543e121deda2445f80f74d85c10316d5b31f4'
 
 local_conf_header:
   10-base: |
