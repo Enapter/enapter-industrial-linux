@@ -53,7 +53,7 @@ repos:
 
   meta-enapter:
     url: 'https://github.com/enapter/meta-enapter'
-    tag: 'v3.0.0-rc7'
+    tag: 'v3.0.0-rc8'
     layers:
       meta-enapter-core:
 
@@ -87,7 +87,7 @@ local_conf_header:
     SPDX_PRETTY = "1"
     IMAGE_FSTYPES = "wic ext4"
     SKIP_META_VIRT_SANITY_CHECK = "1"
-    INHERIT += "rm_work archiver"
+    INHERIT += "rm_work archiver vex"
     COPY_LIC_MANIFEST = "1"
     COPY_LIC_DIRS = "1"
     LICENSE_CREATE_PACKAGE = "1"
