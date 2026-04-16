@@ -1,1 +1,5 @@
-repositories/*
+/build
+/bitbake
+/openembedded-core
+/meta-*/
+!meta-enapter-linux

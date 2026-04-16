@@ -1,5 +1,4 @@
-DISTRO = "enapter-linux"
-DISTRO_NAME = "Enapter Linux"
+DISTRO_NAME = "Enapter Industrial Linux"
 DISTRO_CODENAME = "genapter"
 PACKAGE_CLASSES = "package_rpm"
 USER_CLASSES = "buildstats"
@@ -20,7 +19,6 @@ VOLATILE_LOG_DIR = "no"
 SERIAL_CONSOLES = ""
 
 IMAGE_FS_TOOLS = "\
-    btrfs-tools \
     dosfstools \
     e2fsprogs \
     e2fsprogs-e2fsck \
@@ -33,16 +31,21 @@ IMAGE_FS_TOOLS = "\
     util-linux \
 "
 
+IMAGE_INITRD_KERNEL_DEPS = "\
+    lshw \
+    pciutils \
+    usbutils \
+"
+
 IMAGE_KERNEL_DEPS = "\
+    ${IMAGE_INITRD_KERNEL_DEPS} \
+    iucode-tool \
     kernel-modules \
     linux-firmware-i915 \
     linux-firmware-ibt \
     linux-firmware-iwlwifi \
-    lshw \
     module-init-tools \
     packagegroup-base-wifi \
-    pciutils \
-    usbutils \
 "
 
 IMAGE_ROOTFS_INSTALL_BASE_UTILS = "\
@@ -54,32 +57,23 @@ IMAGE_ROOTFS_INSTALL_BASE_UTILS = "\
     findutils \
     grep \
     gzip \
-    inetutils \
-    inetutils-ping \
-    inetutils-telnet \
-    inetutils-tftp \
-    inetutils-traceroute \
     iproute2 \
     iproute2-ip \
     iproute2-ss \
     iproute2-tc \
+    iputils-arping \
+    iputils-ping \
     less \
     net-tools \
-    p7zip \
     procps \
     sed \
     shadow-base \
     tar \
     time \
+    traceroute \
     unzip \
-    vim \
     wget \
     which \
-"
-
-IMAGE_ROOTFS_INSTALL_CLI_TOOLS = "\
-    mosquitto-clients \
-    postgresql-client \
 "
 
 IMAGE_ROOTFS_INSTALL_CONNECTIVITY = "\
@@ -103,72 +97,33 @@ IMAGE_ROOTFS_INSTALL_CONNECTIVITY = "\
     openssh \
 "
 
-IMAGE_ROOTFS_INSTALL_CONTAINERS = "\
-    crun \
-    netavark \
-    podman \
-"
-
-# podman-compose recipe missed python3-unixadmin and python3-json as dependency
-IMAGE_ROOTFS_INSTALL_DEV_TOOLS = "\
-    podman-compose \
-    python3-unixadmin \
-    python3-json \
-"
-
 IMAGE_ROOTFS_INSTALL_ENAPTER_OSS_SOFTWARE = "\
     enapter-authorized-ssh-keys-configurator \
-    enapter-banner \
     enapter-cron-hook \
     enapter-cron-hook-timer \
-    enapter-docker-compose \
-    enapter-hardware-init \
     enapter-initscripts \
     enapter-journald-persistence \
+    enapter-login-cli \
     enapter-network-configurator \
     enapter-networkmanager-configurator \
     enapter-password-configurator \
-    enapter-podman-prepare \
     enapter-scripts \
     enapter-setup-machine-id \
-    enapter-update-manager \
-    enapter-update-manager-timer \
     enapter-user \
     enapter-wifi-watchdog \
     enapter-wifi-watchdog-timer \
-    monit \
+    gpl-source-code-offer \
     nginx \
+    rauc \
 "
 
 IMAGE_ROOTFS_INSTALL_EXTENDED_UTILS = "\
     curl \
     dmidecode \
-    efibootmgr \
-    elfutils \
-    gawk \
-    gdb \
-    grpcurl \
-    htop \
-    i2c-tools \
-    iotop \
     iptables \
     jq \
-    kexec \
-    lsof \
-    mc \
-    mokutil \
-    mtr \
-    nano \
-    netcat \
-    nmap \
-    screen \
-    socat \
-    strace \
     sudo-lib \
     sudo-sudo \
-    systemd-analyze \
-    tcpdump \
-    trace-cmd \
 "
 
 IMAGE_ROOTFS_INSTALL_OS_SUPPORT = "\
@@ -178,6 +133,7 @@ IMAGE_ROOTFS_INSTALL_OS_SUPPORT = "\
 "
 
 IMAGE_ROOTFS_INSTALL_SYSTEM_DAEMONS = "\
+    auditd \
     chrony \
     chronyc \
     cronie \
@@ -187,10 +143,7 @@ IMAGE_ROOTFS_INSTALL = "\
     ${IMAGE_FS_TOOLS} \
     ${IMAGE_KERNEL_DEPS} \
     ${IMAGE_ROOTFS_INSTALL_BASE_UTILS} \
-    ${IMAGE_ROOTFS_INSTALL_CLI_TOOLS} \
     ${IMAGE_ROOTFS_INSTALL_CONNECTIVITY} \
-    ${IMAGE_ROOTFS_INSTALL_CONTAINERS} \
-    ${IMAGE_ROOTFS_INSTALL_DEV_TOOLS} \
     ${IMAGE_ROOTFS_INSTALL_ENAPTER_OSS_SOFTWARE} \
     ${IMAGE_ROOTFS_INSTALL_EXTENDED_UTILS} \
     ${IMAGE_ROOTFS_INSTALL_OS_SUPPORT} \
@@ -209,22 +162,25 @@ VIRTUAL-RUNTIME_syslog = ""
 VIRTUAL-RUNTIME_base-utils-syslog = ""
 
 PREFERRED_PROVIDER_virtual/kernel = "linux-yocto"
-PREFERRED_VERSION_linux-yocto = "6.6.%"
+PREFERRED_VERSION_linux-yocto = "6.12.%"
 KERNEL_MODULE_AUTOLOAD:append = " squashfs i2c-dev"
 
-PREFERRED_VERSION_grub = "2.12-rc1"
-PREFERRED_VERSION_grub-efi = "2.12-rc1"
+PREFERRED_VERSION_grub = "2.12"
+PREFERRED_VERSION_grub-efi = "2.12"
+
+RUSTVERSION = "1.79%"
+GOVERSION = "1.25.5"
 
 GO_LINKSHARED = ""
 
 hostname_pn-base-files = ""
 
-PACKAGECONFIG:remove:pn-systemd = "timesyncd networkd resolved nss-resolve"
-PACKAGECONFIG:append:pn-systemd = " pcre2 coredump elfutils"
+PACKAGECONFIG:remove:pn-systemd = "timesyncd networkd resolved nss-resolve userdb"
+PACKAGECONFIG:append:pn-systemd = " pcre2"
 
-SYSTEMD_AUTO_ENABLE:sshd = "disable"
+PACKAGECONFIG:append:pn-rauc = " gpt service network streaming"
 
-DISTRO_FEATURES = "acl ipv4 ipv6 largefile pam usbhost wifi xattr pci vfat seccomp security integrity modsign"
+DISTRO_FEATURES = "acl ipv4 ipv6 largefile pam usbhost wifi xattr pci vfat seccomp modsign rauc"
 
 MACHINE_FEATURES:remove = " \
     alsa \
@@ -235,3 +191,5 @@ MACHINE_FEATURES:remove = " \
     touchscreen \
     usbgadget \
     "
+
+require conf/distro/include/security_flags.inc

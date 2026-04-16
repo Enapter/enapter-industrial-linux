@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2024 Enapter <developers@enapter.com>
+# SPDX-License-Identifier: Apache-2.0
+
+header:
+  version: 17
+  includes:
+    - configs/base-enapter-industrial-linux.yml
+
+distro: enapter-industrial-linux-minimal
+target:
+  - enapter-industrial-linux-image
+machine: intel-corei7-64

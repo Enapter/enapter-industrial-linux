@@ -6,7 +6,7 @@ INITRAMFS_SCRIPTS ?= "\
 
 PACKAGE_INSTALL = "\
                    ${IMAGE_FS_TOOLS} \
-                   ${IMAGE_KERNEL_DEPS} \
+                   ${IMAGE_INITRD_KERNEL_DEPS} \
                    ${INITRAMFS_SCRIPTS} \
                    ${VIRTUAL-RUNTIME_base-utils} \
                    ${VIRTUAL-RUNTIME_dev_manager} \
@@ -14,14 +14,19 @@ PACKAGE_INSTALL = "\
                    coreutils \
                   "
 
+BAD_RECOMMENDATIONS += "\
+                   kernel-modules \
+                   tzdata \
+                  "
+
 IMAGE_FEATURES = ""
-export IMAGE_BASENAME = "enapter-linux-initramfs"
+export IMAGE_BASENAME = "enapter-industrial-linux-initramfs"
 IMAGE_NAME_SUFFIX ?= ""
 IMAGE_LINGUAS = ""
 IMAGE_INSTALL = ""
 LICENSE = "MIT"
 
-IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
+IMAGE_FSTYPES = "cpio"
 
 inherit core-image
 

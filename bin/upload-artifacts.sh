@@ -5,6 +5,8 @@
 set -ex
 
 repository="enapter/enapter-industrial-linux"
+sha256sums_name="SHA256SUMS-${DISTRO}"
+artifacts_dir="${BUILD_STORAGE_DIR}/intel-x86-64-images"
 
 upload_asset() {
     release_id="$1"
@@ -21,16 +23,37 @@ upload_asset() {
       --data-binary "@$file_name"
 }
 
+BASE_VERSION="${DISTRO_VERSION%.*}"
+
 create_release_response=$(curl -sL \
   -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $GITHUB_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
   https://api.github.com/repos/$repository/releases \
-  -d "{\"tag_name\":\"$DISTRO_VERSION\",\"name\":\"$DISTRO_VERSION\"}")
+  -d "{\"tag_name\":\"$BASE_VERSION\",\"name\":\"$DISTRO_VERSION\"}")
 
 release_id=$(echo "$create_release_response" | jq '.id')
 
-upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$IMG_ARTIFACT_NAME"
-upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$UPDATE_ARTIFACT_NAME"
-upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "${BUILD_STORAGE_DIR}/intel-x86-64-images/$VMDK_ARTIFACT_NAME"
+cd "$artifacts_dir"
+
+sha256sum -b "$IMG_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME" "$RAUC_UPDATE_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME" > "$sha256sums_name"
+
+upload_asset "$release_id" "$IMG_ARTIFACT_NAME" "$IMG_ARTIFACT_NAME"
+upload_asset "$release_id" "$UPDATE_ARTIFACT_NAME" "$UPDATE_ARTIFACT_NAME"
+upload_asset "$release_id" "$VMDK_ARTIFACT_NAME" "$VMDK_ARTIFACT_NAME"
+upload_asset "$release_id" "$RAUC_UPDATE_ARTIFACT_NAME" "$RAUC_UPDATE_ARTIFACT_NAME"
+upload_asset "$release_id" "$GPL_SOURCES_ARTIFACT_NAME" "$GPL_SOURCES_ARTIFACT_NAME"
+upload_asset "$release_id" "$sha256sums_name" "$sha256sums_name"
+
+if [ -e "$VEX_ARTIFACT_NAME" ]; then
+  upload_asset "$release_id" "$VEX_ARTIFACT_NAME" "$VEX_ARTIFACT_NAME"
+fi
+
+if [ -e "$ROOTFS_SPDX_ARTIFACT_NAME" ]; then
+  upload_asset "$release_id" "$ROOTFS_SPDX_ARTIFACT_NAME" "$ROOTFS_SPDX_ARTIFACT_NAME"
+fi
+
+if [ -e "$INITRAMFS_SPDX_ARTIFACT_NAME" ]; then
+  upload_asset "$release_id" "$INITRAMFS_SPDX_ARTIFACT_NAME" "$INITRAMFS_SPDX_ARTIFACT_NAME"
+fi

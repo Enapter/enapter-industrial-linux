@@ -6,6 +6,13 @@ variables:
   DOCKER_BUILDKIT: 1
   COMPOSE_HTTP_TIMEOUT: 600
   BUILD_STORAGE_DIR: /home/gitlab-runner
+  GIT_STRATEGY: clone
+  DISTRO_TYPE:
+    value: "enapter-industrial-linux"
+    options:
+      - "enapter-industrial-linux"
+      - "enapter-industrial-linux-minimal"
+    description: "Distribution type."
 
 Build Image:
   when: manual
@@ -18,7 +25,6 @@ Build Image:
   script:
     - set -o allexport && source configs/versions.env && set +o allexport
     - source ./bin/prepare-environments.sh
-    - ./bin/fetch-repositories.sh configs/repositories.conf
     - docker-compose -f docker-compose-buildagent.yml run --rm intel-x86-64-build
 
 Git Pull:
@@ -27,7 +33,7 @@ Git Pull:
   tags:
   - yocto
   script:
-    - ./bin/fetch-repositories.sh configs/repositories.conf
+    - echo "Done."
 
 Release:
   when: manual
