@@ -18,14 +18,12 @@ else
   export DISTRO_VERSION="${CI_COMMIT_TAG:-$CI_COMMIT_REF_SLUG}.$CI_PIPELINE_ID"
 fi
 
-export DISTRO="enapter-industrial-linux"
-
-export IMG_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.zip"
-export IMG_FILE_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.img"
-export UPDATE_ARTIFACT_NAME="enapter-industrial-linux-update-${DISTRO_VERSION}.zip"
-export RAUC_UPDATE_ARTIFACT_NAME="enapter-industrial-linux-update-${DISTRO_VERSION}.raucb"
-export VMDK_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}.vmdk"
-export VEX_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}-vex.json"
-export ROOTFS_SPDX_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}-rootfs-spdx.zip"
-export INITRAMFS_SPDX_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}-initrd-spdx.zip"
-export GPL_SOURCES_ARTIFACT_NAME="enapter-industrial-linux-${DISTRO_VERSION}-gpl-sources.zip"
+export IMG_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}.zip"
+export IMG_FILE_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}.img"
+export UPDATE_ARTIFACT_NAME="${DISTRO}-update-${DISTRO_VERSION}.zip"
+export RAUC_UPDATE_ARTIFACT_NAME="${DISTRO}-update-${DISTRO_VERSION}.raucb"
+export VMDK_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}.vmdk"
+export VEX_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}-vex.json"
+export ROOTFS_SPDX_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}-rootfs-spdx.zip"
+export INITRAMFS_SPDX_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}-initrd-spdx.zip"
+export GPL_SOURCES_ARTIFACT_NAME="${DISTRO}-${DISTRO_VERSION}-gpl-sources.zip"

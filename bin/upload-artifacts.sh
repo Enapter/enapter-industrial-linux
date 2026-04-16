@@ -5,7 +5,7 @@
 set -ex
 
 repository="enapter/enapter-industrial-linux"
-sha256sums_name="SHA256SUMS"
+sha256sums_name="SHA256SUMS-${DISTRO}"
 artifacts_dir="${BUILD_STORAGE_DIR}/intel-x86-64-images"
 
 upload_asset() {

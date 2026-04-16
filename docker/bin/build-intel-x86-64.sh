@@ -9,7 +9,7 @@ set -ex
 /home/build/bin/load-sstate.sh
 
 cd "/home/build/enapter-linux-build"
-kas build configs/enapter-industrial-linux.yml
+kas build configs/${DISTRO_TYPE}.yml
 
 /home/build/bin/save-sstate.sh
-kas shell configs/enapter-industrial-linux.yml -c /home/build/bin/prepare-artifacts.sh
+kas shell configs/${DISTRO_TYPE}.yml -c /home/build/bin/prepare-artifacts.sh

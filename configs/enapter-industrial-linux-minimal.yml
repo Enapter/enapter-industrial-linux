@@ -6,7 +6,7 @@ header:
   includes:
     - configs/base-enapter-industrial-linux.yml
 
-distro: enapter-industrial-linux
+distro: enapter-industrial-linux-minimal
 target:
   - enapter-industrial-linux-image
 machine: intel-corei7-64

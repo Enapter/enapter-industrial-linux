@@ -6,13 +6,13 @@ set -ex
 
 efi_boot_dir="EFI/BOOT"
 efi_enapter_dir="EFI/enapter"
-initramfs_spdx="enapter-industrial-linux-initramfs-intel-corei7-64.spdx.tar.zst"
+initramfs_spdx="${DISTRO}-initramfs-intel-corei7-64.spdx.tar.zst"
 install_bundle_name="install.raucb"
 rauc_manifest="manifest.raucm"
-root_ext4_file="enapter-industrial-linux-rootfs-intel-corei7-64.rootfs.ext4"
-rootfs_spdx="enapter-industrial-linux-rootfs-intel-corei7-64.rootfs.spdx.tar.zst"
+root_ext4_file="${DISTRO}-rootfs-intel-corei7-64.rootfs.ext4"
+rootfs_spdx="${DISTRO}-rootfs-intel-corei7-64.rootfs.spdx.tar.zst"
 vex_file="cve-summary.json"
-wic_file="enapter-industrial-linux-image-intel-corei7-64.rootfs.wic"
+wic_file="${DISTRO}-image-intel-corei7-64.rootfs.wic"
 
 boot_files="grubx64.efi grub.cfg"
 home_dir="/home/build"
@@ -36,7 +36,7 @@ update_dir="$home_dir/update"
 # Cleanup from previous run
 rm -rf "$update_dir"
 rm -rf "$rauc_update_dir"
-rm -vf "$images_dir/enapter-industrial-linux-"*
+rm -vf "$images_dir/${DISTRO}-"*
 
 # dummy config for rauc extract to work
 # we specifying all required settings and

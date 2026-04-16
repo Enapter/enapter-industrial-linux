@@ -7,6 +7,12 @@ variables:
   COMPOSE_HTTP_TIMEOUT: 600
   BUILD_STORAGE_DIR: /home/gitlab-runner
   GIT_STRATEGY: clone
+  DISTRO_TYPE:
+    value: "enapter-industrial-linux"
+    options:
+      - "enapter-industrial-linux"
+      - "enapter-industrial-linux-minimal"
+    description: "Distribution type."
 
 Build Image:
   when: manual
